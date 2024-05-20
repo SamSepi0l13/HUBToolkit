@@ -2,6 +2,6 @@
 
 Este script em Bash facilita a instalação de vários programas de forma automatizada em ambiente de servidor.
 
-![Exemplo de Imagem](![github](https://github.com/SamSepi0l13/HUBToolkit/assets/134660568/846641dc-d7fd-4605-8862-6e58248aa393)
-)
+
+![github](https://github.com/SamSepi0l13/HUBToolkit/assets/134660568/dbc4c082-1b12-40cb-86fb-c5aa03d80d7f)
 
