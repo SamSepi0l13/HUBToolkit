@@ -5,55 +5,70 @@ Este script em Bash facilita a instalação de vários programas de forma automa
 
 ![github](https://github.com/SamSepi0l13/HUBToolkit/assets/134660568/dbc4c082-1b12-40cb-86fb-c5aa03d80d7f)
 
-## README para o script hub.sh
+## Roteiro para integrar o script `hub.sh` em ambientes Ansible e Puppet
 
-**Descrição**
+O script `hub.sh` pode ser facilmente integrado em ambientes Ansible e Puppet para automatizar a instalação de diversos exemplos de projetos em seus servidores. Abaixo, apresento um roteiro detalhado para cada ferramenta:
 
-Este script bash, chamado `hub.sh`, oferece uma interface simples para instalar diversos exemplos de projetos. Ele utiliza um menu interativo para facilitar a escolha do exemplo desejado e automatiza o processo de download e execução dos scripts de instalação.
+**Integração com Ansible:**
 
-**Funcionalidades**
+1. **Crie um playbook Ansible:**
+    * Armazene o script `hub.sh` em um diretório acessível ao seu playbook Ansible.
+    * Crie um playbook Ansible com as seguintes tarefas:
+        * **Tarefa 1:** Copie o script `hub.sh` para o servidor remoto:
+            ```yaml
+            - name: Copy hub.sh script to remote server
+              copy:
+                src: /path/to/hub.sh
+                dest: /path/to/desired/location/on/remote/server
+                owner: root
+                group: root
+                mode: 0755
+            ```
+        * **Tarefa 2:** Atribua permissão de execução ao script:
+            ```yaml
+            - name: Grant execution permission to hub.sh
+              command: chmod +x /path/to/hub.sh/on/remote/server
+            ```
+        * **Tarefa 3:** Execute o script com a opção desejada:
+            ```yaml
+            - name: Execute hub.sh with selected option
+              shell: /path/to/hub.sh/on/remote/server {{ option }}
+            ```
+            Substitua `{{ option }}` pela opção desejada (por exemplo, `1` para instalar o Exemplo 1).
 
-* Menu interativo para seleção de exemplos
-* Download automático dos scripts de instalação
-* Execução dos scripts de instalação
-* Registro de logs para acompanhamento das operações
-* Interface amigável com cores e efeitos visuais
+2. **Execute o playbook:**
+    * Utilize o comando `ansible-playbook` para executar o playbook, especificando o inventário de seus servidores:
+        ```bash
+        ansible-playbook hub.yml -i hosts.yml
+        ```
+        Substitua `hub.yml` pelo nome do seu playbook e `hosts.yml` pelo nome do seu arquivo de inventário.
 
-**Requisitos**
+**Integração com Puppet:**
 
-* Sistema operacional Linux
-* Permissão de execução para o script `hub.sh`
-* Conexão com a internet
+1. **Crie um módulo Puppet:**
+    * Crie um módulo Puppet que inclua as seguintes funcionalidades:
+        * Copiar o script `hub.sh` para o servidor gerenciado.
+        * Atribuir permissão de execução ao script.
+        * Executar o script com a opção desejada.
+    * Utilize os recursos do Puppet para gerenciar o ciclo de vida do script e sua execução.
 
-**Instalação**
+2. **Aplique o módulo Puppet:**
+    * Inclua o módulo Puppet em seu manifesto Puppet e aplique-o aos seus servidores gerenciados.
 
-1. Salve o código do script `hub.sh` em um arquivo local.
-2. Atribua permissão de execução ao script:
+**Observações:**
 
-```bash
-chmod +x hub.sh
-```
+* Certifique-se de ajustar os caminhos e permissões de acordo com seu ambiente específico.
+* Utilize as melhores práticas de segurança ao executar scripts em seus servidores.
+* Consulte a documentação oficial do Ansible e Puppet para obter mais informações sobre como criar playbooks e módulos.
 
-3. Execute o script:
+**Benefícios da Integração:**
 
-```bash
-./hub.sh
-```
+* **Automação:** O script `hub.sh` automatiza a instalação de diversos exemplos de projetos, economizando tempo e esforço.
+* **Consistência:** A integração com Ansible e Puppet garante que a instalação seja realizada de forma consistente em todos os seus servidores.
+* **Gerenciamento Centralizado:** Você pode gerenciar a instalação e atualização dos exemplos a partir de um único local.
 
-**Uso**
+Ao integrar o script `hub.sh` em seus ambientes Ansible e Puppet, você otimiza o processo de instalação de diversos exemplos de projetos, aumenta a consistência e facilita o gerenciamento centralizado em seus servidores.
 
-1. Siga as instruções no menu interativo para escolher o exemplo que deseja instalar.
-2. Pressione Enter para confirmar sua escolha.
-3. O script baixará e executará automaticamente o script de instalação do exemplo selecionado.
-4. O log da operação será registrado em `/var/log/hub.log`.
-
-**Contribuição**
-
-É possível adicionar novos exemplos ao script modificando o código e atualizando as variáveis ​​`URL1` a `URL7` com os links para os respectivos scripts de instalação.
-
-**Suporte**
-
-Em caso de dúvidas ou problemas com o script, entre em contato com o desenvolvedor: SamSepi0l13.
 
 **Observações**
 
